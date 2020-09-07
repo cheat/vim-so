@@ -1,0 +1,150 @@
+*vim-so.txt*   Search for Stack Overflow code snippets within Vim
+
+                                  vim-so
+                                     ~
+                              Reference Manual
+
+
+==============================================================================
+CONTENTS                                                     *vim-so-contents*
+
+    1. Overview ........................................|vim-so-overview|
+    2. Example .........................................|vim-so-example|
+    3. Installation ....................................|vim-so-installation|
+    4. Functions .......................................|vim-so-functions|
+    5. Options .........................................|vim-so-options|
+    6. Config ..........................................|vim-so-config|
+    7. Changelog .......................................|vim-so-changelog| 
+    8. Contributing ....................................|vim-so-contributing|
+
+
+==============================================================================
+1. Overview                                                  *vim-so-overview*
+
+
+
+`vim-so` wraps the `so` executable to provide a plain-language search interface
+for code snippets on Stack Overflow.
+
+
+==============================================================================
+2. Example                                                    *vim-so-example*
+
+
+
+Assume that you're building a Go application, and have forgotten how to
+reverse an array. You may run the following ex command:
+
+  `:So reverse an array`
+
+The following will occur:
+
+1. `vim-so` will detect the current `filetype`
+2. `vim` will execute the following shell command: `so -t go "reverse an array"`
+3. The first applicable code snippet will be pasted into the current buffer
+4. You may cycle among snippets via `so#next()` and `so#prev()`
+
+
+==============================================================================
+3. Installation                                          *vim-so-installation*
+
+
+
+`vim-so` can be installed as described in |packages|, or by using a
+package manager like Pathogen, Vundle, or Plug.
+
+
+==============================================================================
+4. Functions                                                *vim-so-functions*
+
+
+
+`so#search`                                                        *so#search*
+
+Search the Stack Overflow API for code snippets matching a phrase. It's
+recommended that you map this function to a convenient command:
+
+  `command -nargs=1 So call so#search(<q-args>)`
+
+
+`so#next`                                                            *so#next*
+
+Cycle to the next code snippet. It's recommended that you map this function to
+a convenient hotkey:
+
+  `nnoremap <C-N> :call so#next()<CR>`
+
+
+`so#prev`                                                            *so#prev*
+
+Cycle to the previous code snippet. It's recommended that you map this
+function to a convenient hotkey:
+
+  `nnoremap <C-P> :call so#prev()<CR>`
+
+
+`so#view`                                                            *so#view*
+
+Open the Stack Overflow thread associated with the current code snippet in
+your web browser:
+
+  `command SoView :call so#view()`
+
+
+==============================================================================
+5. Options                                                    *vim-so-options*
+
+
+
+`g:so_bin`                                                            *g:so_bin*
+
+The path to the `so` executable. Defaults to `so`.
+
+
+`g:so_browser`                                                    *g:so_browser* 
+
+The browser executable that should be used in conjunction with the `so#view`
+function.
+
+
+==============================================================================
+6. Config                                                      *vim-so-config*
+
+
+
+Here's a practical configuration example. Add these lines to your |vimrc|:
+
+  `let g:so_browser = "firefox"`
+  `command -nargs=1 So call so#search(<q-args>)`
+  `command SoView call so#view()`
+  `nnoremap <C-N> :call so#next()<CR>`
+  `nnoremap <C-P> :call so#prev()<CR>`
+
+==============================================================================
+7. Changelog                                                *vim-so-changelog*
+
+
+
+* v1.0.0: Initial release
+
+
+==============================================================================
+8. Contributing                                          *vim-so-contributing*
+
+
+
+If you would like to contribute to the development of this plugin, please fork
+its repository on Github and open a pull-request:
+
+  https://github.com/chrisallenlane/vim-so
+
+If you would like to report a bug or make a feature request, please do so in
+the Github issue tracker:
+
+  https://github.com/chrisallenlane/vim-so/issues
+
+You may also contact the author of this plugin directly:
+
+  Chris Allen Lane <chris@chris-allen-lane.com>
+
+vim:tw=78:ts=8:noet:ft=help:norl:
